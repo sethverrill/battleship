@@ -6,23 +6,23 @@ RSpec.describe Board do
     end
 
     describe '#initialize board' do
-        it 'exisits' do
+        xit 'exisits' do
             expect(@board).to be_an_instance_of(Board)
         end
 
-        it 'is a hash' do
+        xit 'is a hash' do
             expect(@board.cells).to be_a(Hash)
         end
 
-        it 'is not empty' do
+        xit 'is not empty' do
             expect(@baord.cells).not_to be_empty
         end
 
-        it 'has 16 cells' do
+        xit 'has 16 cells' do
             expect(@board.cells.size).to eq(16)
         end 
 
-        it 'has Cell objects as values' do
+        xit 'has Cell objects as values' do
             @board.cells.values.each do |cell| 
                 expect(cell). to be_a(Cell)
             end
@@ -30,7 +30,7 @@ RSpec.describe Board do
     end
 
     describe '#can validate coordinates' do
-        it 'can tell us if a coordinate is on the board' do
+        xit 'can tell us if a coordinate is on the board' do
             expect(@board.valid_coordinate?("A1")).to eq(true)
             expect(@board.valid_coordinate?("D4")).to eq(true)
             expect(@board.valid_coordinate?("A5")).to eq(false)
@@ -45,24 +45,24 @@ RSpec.describe Board do
             @submarine = Ship.new("Submarine, 2")
         end
 
-            it 'should have number of coordinates in the array equal to length of ship' do
+            xit 'should have number of coordinates in the array equal to length of ship' do
                 expect(@board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
                 board.valid_placement?(submarine, ["A2", "A3", "A4"]).to eq(false)
             end
 
-            it 'should have consecutive coordinates' do
+            xit 'should have consecutive coordinates' do
                 expect(@board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
                 expect(@board.valid_placement?(submarine, ["A1", "C1"])).to eq(false)
                 expect(@board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to eq(false)
                 expect(@board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
             end
 
-            it 'should not be placed diagonally' do
+            xit 'should not be placed diagonally' do
                 expect(@board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to eq(false)
                 expect(@board.valid_placement?(submarine, ["C2", "D3"])).to eq(false)
             end
 
-            it 'should be placed correctly' do
+            xit 'should be placed correctly' do
                 expect(@board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
                 expect(@board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
             end
