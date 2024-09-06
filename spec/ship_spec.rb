@@ -18,16 +18,16 @@ RSpec.describe Ship do
     expect(@cruiser.length).to eq(3)
   end
 
-  xit 'has a starting health' do
+  it 'has a starting health' do
     expect(@cruiser.health).to eq(3)
   end
 
   #another describe here if we want to make that uniform
-  xit 'returns false if ship is not sunk' do
+  it 'returns false if ship is not sunk' do
     expect(@cruiser.sunk?).to eq(false)
   end  
 
-  xit 'loses health on hit' do
+  it 'loses health on hit' do
     @cruiser.hit
     expect(@cruiser.health).to eq(2)
     @cruiser.hit
@@ -38,6 +38,6 @@ RSpec.describe Ship do
     @cruiser.hit
     @cruiser.hit
     @cruiser.hit
-    expect(@cruiser.health).to eq(true)
+    expect(@cruiser.sunk?).to eq(true)
   end
 end
