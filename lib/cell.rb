@@ -1,37 +1,51 @@
 class Cell
     attr_reader :coordinate,
-                :ship
+                :ship,
+                :render
     
     def initialize(coordinate)
         @coordinate = coordinate 
         @ship = nil
+        @render = "."
         @fired_upon = false
     end
 
     def place_ship(ship)
+        @render = "S"
         @ship = ship
     end
 
     def empty?
-        @ship.nil?
+        @render == "."
+    end  
+
+    def fired_upon?
+        @render != "." && @render != "S"
     end
 
     def fire_upon
-        @fired_upon = true
-        ship.hit if @ship
-    end
+        return false if fired_upon?
+    
+      @render = if @ship
+                    @ship.hit
+                    @ship.sunk? ? "X" : "H"
+                else
+                    "M"
+                end
+        true        
+    end            
 
-    def fired_upon?
-        @fired_upon
-    end
-
-    def render
-        if ship.hit
-            "H"
-        elsif ship.sunk? == true 
-            "X"
+    def render(show_ships = false)
+        if fired_upon?
+            if @ship
+                return "X" if @ship.sunk?
+                return "H"
+            else
+                return "M"
+            end
         else
-            "M"
-        end
+            return "S" if show_ships && @ship
+            return "."        
+         end
     end
 end
