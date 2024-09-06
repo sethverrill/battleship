@@ -12,4 +12,8 @@ class Ship
     def health
         @starting_health
     end
+
+    def sunk?
+        false
+    end
 end
