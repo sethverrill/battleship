@@ -14,4 +14,12 @@ class Cell
     def empty?
         @ship.nil?
     end
+
+    def fire_upon
+        ship.hit
+    end
+
+    def fired_upon?
+        ship.health <= 2
+    end
 end
