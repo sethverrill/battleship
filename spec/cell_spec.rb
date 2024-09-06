@@ -39,40 +39,38 @@ RSpec.describe Cell do
     expect(@cruiser.health).to eq(2)
     expect(@cell.fired_upon?).to eq(true)
   end
-  #if we want to break these down to describes the pry is calling for our before cell to be cell_1. I'm leaving it for now
-  xit 'renders a location' do
-    @cell.render #not sure how this render class will look. Feel free to adjust anywhere
-    expect(@cell.render).to eq(".")
-    #this is calling for cell.render to return "." so we probably already need default render status of "."
+
+  it 'renders a location' do    
+    expect(@cell.render).to eq(".")    
     @cell.fire_upon
-    expect(@cell.render).to eq("M")
-    # "M" for miss, "H" for hit, "X" for sunk
+    expect(@cell.render).to eq("M")    
   end
 
-  xit 'can place a ship and recognize it' do
+  it 'can place a ship and recognize it' do
     @cell_2 = Cell.new("C3")
     @cruiser = Ship.new("Cruiser", 3)
-    @cell_2.place_ship(cruiser)
+    @cell_2.place_ship(@cruiser)
     expect(@cell_2.render).to eq(".")
-    expect(@cell_2.render(true)).to eq("S") # I'm guessing this is the two sides of the board rendering differently
+    expect(@cell_2.render(true)).to eq("S")
   end
 
-  xit 'can be fired upon' do
+  it 'can be fired upon' do
     @cell_2 = Cell.new("C3")
     @cruiser = Ship.new("Cruiser", 3)
-    @cell_2.place_ship(cruiser)
+    @cell_2.place_ship(@cruiser)
     @cell_2.fire_upon
     expect(@cell_2.render).to eq("H")
   end
 
-  xit 'displays if it has been sunk' do
+  it 'displays if it has been sunk' do
     @cell_2 = Cell.new("C3")
     @cruiser = Ship.new("Cruiser", 3)
-    @cell_2.place_ship(cruiser)
+    @cell_2.place_ship(@cruiser)
     @cell_2.fire_upon
     expect(@cruiser.sunk?).to eq(false)
     @cruiser.hit
-    @cruiser.hit
+    expect(@cell_2.render).to eq("H")
+    @cruiser.hit  
     expect(@cruiser.sunk?).to eq(true)
     expect(@cell_2.render).to eq("X")
   end
