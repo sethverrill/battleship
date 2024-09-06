@@ -9,11 +9,15 @@ class Ship
         @health = health
     end
 
+    def hit
+        @starting_health -=1
+    end
+
     def health
         @starting_health
     end
 
     def sunk?
-        false
+        @starting_health ==0
     end
 end
