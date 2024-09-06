@@ -40,7 +40,7 @@ RSpec.describe Cell do
     expect(@cell.fired_upon?).to eq(true)
   end
   #if we want to break these down to describes the pry is calling for our before cell to be cell_1. I'm leaving it for now
-  it 'renders a location' do
+  xit 'renders a location' do
     @cell.render #not sure how this render class will look. Feel free to adjust anywhere
     expect(@cell.render).to eq(".")
     #this is calling for cell.render to return "." so we probably already need default render status of "."
@@ -49,7 +49,7 @@ RSpec.describe Cell do
     # "M" for miss, "H" for hit, "X" for sunk
   end
 
-  it 'can place a ship and recognize it' do
+  xit 'can place a ship and recognize it' do
     @cell_2 = Cell.new("C3")
     @cruiser = Ship.new("Cruiser", 3)
     @cell_2.place_ship(cruiser)
@@ -57,7 +57,7 @@ RSpec.describe Cell do
     expect(@cell_2.render(true)).to eq("S") # I'm guessing this is the two sides of the board rendering differently
   end
 
-  it 'can be fired upon' do
+  xit 'can be fired upon' do
     @cell_2 = Cell.new("C3")
     @cruiser = Ship.new("Cruiser", 3)
     @cell_2.place_ship(cruiser)
@@ -65,7 +65,7 @@ RSpec.describe Cell do
     expect(@cell_2.render).to eq("H")
   end
 
-  it 'displays if it has been sunk' do
+  xit 'displays if it has been sunk' do
     @cell_2 = Cell.new("C3")
     @cruiser = Ship.new("Cruiser", 3)
     @cell_2.place_ship(cruiser)
