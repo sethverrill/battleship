@@ -21,5 +21,26 @@ class Board
     @cells.key?(coordinate)
   end
 
+  def valid_placement?(ship, coordinates)
+    if coordinates.length == ship.length
+      if coordinates.all?  { |place| valid_coordinate?(place)}      
+        if consecutive_coordinates?(coordinates)
+         return true
+        else
+          puts "Those are invalid coordinates. Please try again:"
+          return false
+        end
+      else
+        puts "Those are invalid coordinates. Please try again:"
+        return false
+      end
+    else
+      puts "Those are invalid coordinates. Please try again:"
+      return false
+    end
+  end
 end
+
+
+
 
