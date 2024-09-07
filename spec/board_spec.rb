@@ -95,4 +95,37 @@ RSpec.describe Board do
         end
     end
 
+    describe '#render' do
+        before(:each) do
+            @cruiser = Ship.new("Cruiser", 3)
+            @submarine = Ship.new("Submarine", 2)
+        end
+
+        it 'renders the board without revealing ships by default' do
+            expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+        end
+
+        it 'renders the board with ships if show_ships = true' do
+            @board.place(["A1", "A2", "A3"], @cruiser)
+            expect(@board.render).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+        end
+
+        it 'renders hits, misses, and sunken ships' do
+            @board.place(["A1", "A2", "A3"], @cruiser)
+            @board.place(["C1", "D1"], @submarine)
+            @board.cells["A1"].fire_upon
+            @board.cells["B4"].fire_upon
+            @board.cells["C1"].fire_upon
+            @board.cells["D1"].fire_upon
+            expect(@board.render).to eq("  1 2 3 4 \nA H . . .\nB . . . M \nC X . . . \nD X . . . \n")
+        end
+
+        it 'renders letter coordinates' do
+            expect(@board.top_row).to eq("  1 2 3 4 \n")
+        end
+
+        it 'renders number coordinates' do
+            expect(@board.board_numbers).to eq (1, 2, 3, 4)
+        end
+    end
 end
