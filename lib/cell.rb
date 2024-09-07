@@ -29,16 +29,13 @@ class Cell
     end            
 
     def render(show_ships = false)
-        if fired_upon?
-            if @ship
-                return "X" if @ship.sunk?
-                return "H"
-            else
-                return "M"
-            end
+        case
+        when fired_upon?
+            @ship ? (@ship.sunk? ? "X" : "H") : "M"
+        when show_ships && @ship
+            "S"
         else
-            return "S" if show_ships && @ship
-            return "."        
-         end
+            "."
+        end
     end
 end
