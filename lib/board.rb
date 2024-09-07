@@ -14,6 +14,12 @@ class Board
       end
     end
     cells 
-  end
+  end  
   #I think this method will need to be drastically changed once we expand board size
+
+  def valid_coordinate?(coordinate)
+    @cells.key?(coordinate)
+  end
+
 end
+
