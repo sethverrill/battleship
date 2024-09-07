@@ -2,7 +2,7 @@ require './spec/spec_helper'
 
 RSpec.describe Board do
     before(:each) do
-      @board = Board.new  
+      @board = Board.new 
     end
 
     describe '#initialize board' do
@@ -77,7 +77,7 @@ RSpec.describe Board do
 
         it 'can place a ship' do
             expect(@board.place(@cruiser, ["A1", "A2", "A3"])).to eq true
-            expect(board.cells["A1"].ship).to eq(@cruiser)
+            expect(@board.cells["A1"].ship).to eq(@cruiser)
             expect(@board.cells["A2"].ship).to eq(@cruiser)
             expect(@board.cells["A3"].ship).to eq(@cruiser)
         end
