@@ -32,23 +32,27 @@ class Board
     # Checks if the coordiantes are consecutive using the arrays and booleans created above
     (letters.uniq.size == 1 && consecutive_numbers) || (numbers.uniq.size == 1 && consecutive_letters)
   end
-  
+
   def valid_placement?(ship, coordinates)
-    if coordinates.length == ship.length
-      if coordinates.all?  { |place| valid_coordinate?(place)}      
-        if consecutive_coordinates?(coordinates)
-         return true
-        else
-          puts "Those are invalid coordinates. Please try again:"
-          return false
-        end
-      else
-        puts "Those are invalid coordinates. Please try again:"
-        return false
-      end
+    if coordinates.length == ship.length &&
+      coordinates.all? { |coord| valid_coordinate?(coord) } &&
+      consecutive_coordinates?(coordinates) &&
+      coordinates.none? { |coord| @cells[coord].ship }
+      true
     else
-      puts "Those are invalid coordinates. Please try again:"
-      return false
+      false
+    end
+  end
+    
+  def place(ship, coordinates)    
+    if valid_placement?(ship, coordinates)
+      coordinates.each do |coordinate|
+        @cells[coordinate].place_ship(ship)
+        # require 'pry';binding.pry
+      end
+      true
+    else
+      false
     end
   end
 end
