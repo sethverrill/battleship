@@ -33,7 +33,6 @@ class Board
     (letters.uniq.size == 1 && consecutive_numbers) || (numbers.uniq.size == 1 && consecutive_letters)
   end
   
-
   def valid_placement?(ship, coordinates)
     if coordinates.length == ship.length
       if coordinates.all?  { |place| valid_coordinate?(place)}      
