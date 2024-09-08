@@ -7,6 +7,9 @@
 
 class MainMenu
     def initialize
+        @board = Board.new
+        @cruiser = Ship.new("Cruiser", 3)
+        @submarine = Ship.new("Submarine", 2)
     end
 
 
@@ -39,6 +42,21 @@ class MainMenu
                       "C . . . .\n" +
                       "D . . . .\n"
     end
+
+    def place_computer_ships
+        [@cruiser, @submarine].each do |ship|
+            loop do
+                coordinates = @board.cells.keys.sample(ship.length)
+                if @board.valid_placement?(ship, coordinates)
+                    @board.place(ship, coordinates)
+                    require'pry';binding.pry
+                    break
+                end
+            end
+        end
+    end   
+
+    
 
 end
 
