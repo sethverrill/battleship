@@ -22,6 +22,7 @@ class Board
   end
 
   def consecutive_coordinates?(coordinates)
+    return false if coordinates.empty?
     # Distinguish between letters and numbers and to create a list of each
     letters = coordinates.map {|coord_letter| coord_letter[0]}
     numbers = coordinates.map {|coord_number| coord_number[1].to_i}
@@ -32,27 +33,44 @@ class Board
     # Checks if the coordiantes are consecutive using the arrays and booleans created above
     (letters.uniq.size == 1 && consecutive_numbers) || (numbers.uniq.size == 1 && consecutive_letters)
   end
-  
+
   def valid_placement?(ship, coordinates)
-    if coordinates.length == ship.length
-      if coordinates.all?  { |place| valid_coordinate?(place)}      
-        if consecutive_coordinates?(coordinates)
-         return true
-        else
-          puts "Those are invalid coordinates. Please try again:"
-          return false
-        end
-      else
-        puts "Those are invalid coordinates. Please try again:"
-        return false
+      coordinates.length == ship.length &&
+      coordinates.all? { |coord| valid_coordinate?(coord) } &&
+      consecutive_coordinates?(coordinates) &&
+      coordinates.none? { |coord| @cells[coord].ship }
+  end
+    
+  def place(ship, coordinates)    
+    if valid_placement?(ship, coordinates)
+      coordinates.each do |coordinate|
+        @cells[coordinate].place_ship(ship)
+        # require 'pry';binding.pry
       end
+      true
     else
-      puts "Those are invalid coordinates. Please try again:"
-      return false
+      false
     end
   end
+
+  def render(show_ships = false)
+    string = top_row
+    ('A'..'D').each do |letter|
+      string += "#{letter} "
+      (1..4).each do |number|
+        coordinate = "#{letter}#{number}"
+        string += "#{@cells[coordinate].render(show_ships)} "
+      end
+      string += "\n"
+    end
+    string
+  end
+
+  def top_row
+    return "  #{board_numbers.join(' ')} \n"
+  end
+
+  def board_numbers
+    (1..4).to_a
+  end
 end
-
-
-
-
