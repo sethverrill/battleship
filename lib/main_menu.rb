@@ -27,5 +27,17 @@ class MainMenu
             "I didn't understand your selection, try again."
         end
     end
+
+    def placement_instructions
+        "I have laid out my ships on the grid.\n" +
+                      "You now need to lay out your two ships.\n" +
+                      "The Cruiser is three units long and the Submarine is two units long.\n" +
+                      "  1 2 3 4\n" +
+                      "A . . . .\n" +
+                      "B . . . .\n" +
+                      "C . . . .\n" +
+                      "D . . . .\n"
+    end
+
 end
 
