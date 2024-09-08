@@ -19,11 +19,12 @@ class MainMenu
     end
 
     def start_game
-        if get_user_input.downcase == "p"
+        input = get_user_input.downcase
+        if input == "p"
             "Beginning BATTLESHIP!"
-        elsif get_user_input.downcase == "q"
+        elsif input == "q"
             "Sorry to see you go."
-        else get_user_input != "p" || get_user_input != "q"
+        else 
             "I didn't understand your selection, try again."
         end
     end
