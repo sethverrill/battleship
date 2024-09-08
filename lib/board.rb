@@ -23,14 +23,10 @@ class Board
 
   def consecutive_coordinates?(coordinates)
     return false if coordinates.empty?
-    # Distinguish between letters and numbers and to create a list of each
     letters = coordinates.map {|coord_letter| coord_letter[0]}
     numbers = coordinates.map {|coord_number| coord_number[1].to_i}
-
     consecutive_letters = letters.each_cons(2).all? {|first, second| second.ord - first.ord == 1}
-
     consecutive_numbers = numbers.each_cons(2).all? {|first, second| second - first == 1}
-
     (letters.uniq.size == 1 && consecutive_numbers) || (numbers.uniq.size == 1 && consecutive_letters)
   end
 
