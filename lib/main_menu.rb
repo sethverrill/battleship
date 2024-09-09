@@ -6,12 +6,8 @@ class MainMenu
         "Welcome to BATTLESHIP! \nEnter p to play or q to quit"
     end
 
-    def get_user_input
-        gets.chomp
-    end
-
     def start_game
-        input = get_user_input.downcase
+        input = gets.chomp.downcase
         if input == "p"
             "Beginning BATTLESHIP!"
         elsif input == "q"
