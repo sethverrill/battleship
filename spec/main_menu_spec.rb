@@ -11,19 +11,19 @@ RSpec.describe MainMenu do
   
   describe '#welcome message' do
     it 'has a welcome' do
-      expect(@menu.welcome).to eq("Welcome to BATTLESHIP! \nenter p to play or q to quit")
+      expect(@menu.welcome).to eq("Welcome to BATTLESHIP! \nEnter p to play or q to quit")
     end
   end
 
   describe '#start of game' do
     it 'asks the player to play' do 
       allow(@menu).to receive(:gets).and_return("p")
-      expect(@menu.start_game).to eq("Begining BATTLESHIP")
+      expect(@menu.start_game).to eq("Beginning BATTLESHIP!")
     end
 
     it '...or quit' do
       allow(@menu).to receive(:gets).and_return("q")
-      expect(@menu.start_game).to eq("Sorry to see you go")
+      expect(@menu.start_game).to eq("Sorry to see you go.")
     end
   end
 
@@ -58,5 +58,5 @@ RSpec.describe MainMenu do
       allow(@menu).to receive(:gets).and_return("C1", "C4")
       expect(@menu.place_ship(@submarine, @board)).to eq("Those coordinates are invalid")
     end
-
+  end
 end
