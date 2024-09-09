@@ -1,17 +1,6 @@
-# Setup:
-
-# Computer can place ships randomly in valid locations
-# User can enter valid sequences to place both ships
-# Entering invalid ship placements prompts user to enter 
-# valid placements
-
 class MainMenu
     def initialize
-        @board = Board.new
-        @cruiser = Ship.new("Cruiser", 3)
-        @submarine = Ship.new("Submarine", 2)
     end
-
 
     def welcome
         "Welcome to BATTLESHIP! \nEnter p to play or q to quit"
@@ -28,7 +17,7 @@ class MainMenu
         elsif input == "q"
             "Sorry to see you go."
         else 
-            "I didn't understand your selection, try again."
+            "I didn't understand your selection. Please try again."
         end
     end
 
@@ -65,6 +54,5 @@ class MainMenu
           "Those coordinates are invalid"
         end
     end
- 
 end
 
