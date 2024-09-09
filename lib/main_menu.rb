@@ -49,14 +49,22 @@ class MainMenu
                 coordinates = @board.cells.keys.sample(ship.length)
                 if @board.valid_placement?(ship, coordinates)
                     @board.place(ship, coordinates)
-                    require'pry';binding.pry
                     break
                 end
             end
         end
     end   
 
-    
-
+    def place_ship(ship, board)
+        puts "Enter #{ship.length} coordinates for the #{ship.name}"
+        coordinates = gets.chomp.upcase.split
+        if board.valid_placement?(ship, coordinates)
+          board.place(ship, coordinates)
+          true
+        else
+          "Those coordinates are invalid"
+        end
+    end
+ 
 end
 
