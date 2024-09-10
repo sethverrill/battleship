@@ -55,6 +55,18 @@ class Board
     end
   end
 
+  def place_computer_ships
+    ships.each do |ship|
+      loop do
+        coordinates = @board.cells.keys.sample(ship.length)
+        if valid_placement?(ship, coordinates)
+          place(ship, coordinates)
+          break
+        end
+      end
+    end
+  end
+
   def render(show_ships = false)
     string = top_row
     letter_range.each do |letter|
@@ -69,7 +81,7 @@ class Board
   end
 
   def top_row
-    return "  #{board_numbers.join(' ')} \n"
+    return "  #{board_numbers.join(' ')}\n"
   end
 
   def board_numbers
