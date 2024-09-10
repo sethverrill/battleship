@@ -18,12 +18,27 @@ RSpec.describe MainMenu do
   describe '#start of game' do
     it 'asks the player to play' do 
       allow(@menu).to receive(:gets).and_return("p")
+      allow(@menu).to receive(:choose_board_size)
       expect(@menu.start_game).to eq("Beginning BATTLESHIP!")
     end
 
     it '...or quit' do
       allow(@menu).to receive(:gets).and_return("q")
       expect(@menu.start_game).to eq("Sorry to see you go.")
+    end
+  end
+
+  describe '#choose board size' do
+    it 'sets the board size to 8' do
+      allow(@menu).to receive(:gets).and_return("2")
+      @menu.choose_board_size
+      expect(@menu.board_size).to eq(8)
+    end
+
+    it 'sets the board size to 20' do
+      allow(@menu).to receive(:gets).and_return("4")
+      @menu.choose_board_size
+      expect(@menu.board_size).to eq(20)
     end
   end
 

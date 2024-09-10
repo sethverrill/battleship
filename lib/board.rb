@@ -1,21 +1,28 @@
 class Board
-  attr_reader :cells  
+  attr_reader :cells,
+              :size  
 
-  def initialize
-    @cells = board_cells
+  def initialize(size = 4)
+    @size = size
+    @cells = board_cells    
+  end
+
+  def letter_range
+    start_letter = "A"
+    last_letter = (start_letter.ord + @size -1).chr
+    (start_letter..last_letter)
   end
 
   def board_cells
     cells = {}
-    ('A'..'D').each do |letter|
-      (1..4).each do |number|
+    letter_range.each do |letter|
+      (1..@size).each do |number|
         coordinate = "#{letter}#{number}"
         cells[coordinate] = Cell.new(coordinate)        
       end
     end
     cells 
-  end  
-  #I think this method will need to be drastically changed once we expand board size
+  end
 
   def valid_coordinate?(coordinate)
     @cells.key?(coordinate)
@@ -40,8 +47,7 @@ class Board
   def place(ship, coordinates)    
     if valid_placement?(ship, coordinates)
       coordinates.each do |coordinate|
-        @cells[coordinate].place_ship(ship)
-        # require 'pry';binding.pry
+        @cells[coordinate].place_ship(ship)        
       end
       true
     else
@@ -51,9 +57,9 @@ class Board
 
   def render(show_ships = false)
     string = top_row
-    ('A'..'D').each do |letter|
+    letter_range.each do |letter|
       string += "#{letter} "
-      (1..4).each do |number|
+      (1..@size).each do |number|
         coordinate = "#{letter}#{number}"
         string += "#{@cells[coordinate].render(show_ships)} "
       end
@@ -67,6 +73,6 @@ class Board
   end
 
   def board_numbers
-    (1..4).to_a
+    (1..@size).to_a
   end
 end
