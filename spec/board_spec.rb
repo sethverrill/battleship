@@ -2,7 +2,8 @@ require './spec/spec_helper'
 
 RSpec.describe Board do
     before(:each) do
-      @board = Board.new 
+      @board = Board.new
+      @board2 = Board.new(8) 
     end
 
     describe '#initialize board' do
@@ -20,6 +21,7 @@ RSpec.describe Board do
 
         it 'has 16 cells' do
             expect(@board.cells.size).to eq(16)
+            expect(@board2.cells.size).to eq(64)
         end 
 
         it 'has Cell objects as values' do

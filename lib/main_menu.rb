@@ -1,5 +1,7 @@
 class MainMenu
+    attr_reader :board_size
     def initialize
+        @board_size = 4
     end
 
     def welcome
@@ -14,6 +16,28 @@ class MainMenu
             "Sorry to see you go."
         else 
             "I didn't understand your selection. Please try again."
+        end
+    end
+
+    def choose_board_size
+        "Please choose the size of board you would like to play on:"
+        "Enter 1 for 4x4"
+        "Enter 2 for 8x8"
+        "Enter 3 for 12x12"
+        "Enter 4 for 20x20"
+        input = gets.chomp
+        case input
+        when "1"
+            @board_size = 4
+        when "2"
+            @board_size = 8
+        when "3"
+            @board_size = 12
+        when "4"
+            @board_size = 20
+        else
+            "That is not a valid selection. Playing with default board"
+            @board_size = 4
         end
     end
 
