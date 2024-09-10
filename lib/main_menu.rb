@@ -52,18 +52,6 @@ class MainMenu
                       "D . . . .\n"
     end
 
-    def place_computer_ships
-        [@cruiser, @submarine].each do |ship|
-            loop do
-                coordinates = @board.cells.keys.sample(ship.length)
-                if @board.valid_placement?(ship, coordinates)
-                    @board.place(ship, coordinates)
-                    break
-                end
-            end
-        end
-    end   
-
     def place_ship(ship, board)
         puts "Enter #{ship.length} coordinates for the #{ship.name}"
         coordinates = gets.chomp.upcase.split
