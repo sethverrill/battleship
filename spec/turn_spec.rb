@@ -83,11 +83,11 @@ RSpec.describe Turn do
   end
   
   describe "#gives feedback" do
-    xit "computer had a hit" do
+    it "computer had a hit" do
       expect(@turn.computer_feedback("A1", "H")).to eq("My shot on A1 was a hit!")
     end
 
-    xit "computer had a miss" do
+    it "computer had a miss" do
       expect(@turn.computer_feedback("B1", "M")).to eq("My shot on B1 was a miss.")
     end
   end 
