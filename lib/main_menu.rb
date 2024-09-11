@@ -11,7 +11,9 @@ class MainMenu
     def start_game
         input = gets.chomp.downcase
         if input == "p"
-            "Beginning BATTLESHIP!"
+            puts "Beginning BATTLESHIP!"
+            @board_size = choose_board_size
+            true
         elsif input == "q"
             "Sorry to see you go."
         else 
@@ -20,11 +22,11 @@ class MainMenu
     end
 
     def choose_board_size
-        "Please choose the size of board you would like to play on:"
-        "Enter 1 for 4x4"
-        "Enter 2 for 8x8"
-        "Enter 3 for 12x12"
-        "Enter 4 for 20x20"
+        print "Please choose the size of board you would like to play on:\n" +
+        "Enter 1 for 4x4\n" +
+        "Enter 2 for 8x8\n" +
+        "Enter 3 for 12x12\n" +
+        "Enter 4 for 20x20\n"
         input = gets.chomp
         case input
         when "1"
@@ -39,16 +41,17 @@ class MainMenu
             "That is not a valid selection. Playing with default board"
             @board_size = 4
         end
+        @board_size
     end
 
     def placement_instructions
-        "I have laid out my ships on the grid.\n" +
+        instructions = "I have laid out my ships on the grid.\n" +
                       "You now need to lay out your ships.\n" +                     
-                      "  1 2 3 4\n" +
-                      "A . . . .\n" +
-                      "B . . . .\n" +
-                      "C . . . .\n" +
-                      "D . . . .\n"
+                      " #{(1..@board_size).map { |num| num.to_s.rjust(2) }.join(' ')}\n"
+                      ('A'..('A'.ord + @board_size - 1).chr).each do |letter|
+                        instructions += "#{letter} " + (1..@board_size).map { '. ' }.join(' ') + "\n"
+                      end
+                      instructions
     end
 
     def place_ship(ship, board)
