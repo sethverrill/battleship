@@ -10,15 +10,15 @@ class GameRunner
     @player_ships = nil
     @computer_ship = nil
     @turn = nil
-  end
+  end  
 
   def start
     puts @main_menu.welcome
-    response = @main_menu.start_game
-    puts response
-    return unless response == "Beginning BATTLESHIP!"
+    game_started = @main_menu.start_game
+    
+    return unless game_started
 
-    @board_size = @main_menu.choose_board_size
+    @board_size = @main_menu.board_size   
     @player_board = Board.new(@board_size)
     @computer_board = Board.new(@board_size)
     ships = Ship.build_ships
@@ -33,6 +33,8 @@ class GameRunner
         puts result
       end
     end
+
+    display_player_board
 
     @computer_board.place_computer_ships(@computer_ships)
 
@@ -51,6 +53,10 @@ class GameRunner
 
     @turn.display_boards
     puts "Game Over!"
+  end
+
+    def display_player_board
+      puts "Game on!"     
   end
 end
 
