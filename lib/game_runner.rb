@@ -18,30 +18,26 @@ class GameRunner
   end
 
   def start
-    loop do 
-      display_welcome if @first_run
-      @first_run = false
+    puts @main_menu.welcome
+    response = @main_menu.start_game
+    puts response
+    return unless response == "Beginning BATTLESHIP!"
 
-      response = @main_menu.start_game
-      puts response
-      break if  response != "Beginning BATTLESHIP!"
+    @board_size = @main_menu.choose_board_size
+    @player_board = Board.new(@board_size)
+    @computer_board = Board.new(@board_size)
+    ships = Ship.build_ships
+    @player_ships = ships
+    @computer_ships = ships.map { |ship| Ship.new(ship.name, ship.length)}
 
+    puts @main_menu.placement_instructions
+    @player_ships.each do |ship|
       loop do
-        @board_size = @main_menu.choose_board_size
-        @player_board = Board.new(@board_size)
-        @computer_board = Board.new(@board_size)
-        ships = Ship.build_ships
-        @player_ships = ships
-        @computer_ships = ships.map { |ship| Ship.new(ship.name, ship.length)}
-
-        puts @main_menu.placement_instructions
-        @player_ships.each do |ship|
-          loop do
-            result = @main_menu.place_ship(ship, @player_board)
-            break if result == true
-            puts result
-          end
-        end
+        result = @main_menu.place_ship(ship, @player_board)
+        break if result == true
+        puts result
+      end
+    end
 
         @computer_board.place_computer_ships(@computer_ships)
 
@@ -63,6 +59,10 @@ class GameRunner
         break unless gets.chomp.downcase == 'y'
       end
     end
+  end
+
+    def display_player_board
+      puts "Game on!"     
   end
 end
 

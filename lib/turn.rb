@@ -33,44 +33,44 @@ class Turn
         if !cell.fired_upon?
           cell.fire_upon
           if cell.render == "H"
-            feedback_hit = "Your shot on #{coordinate} was a hit!"
+            feedback_hit = "Your shot on #{coordinate} was a hit! "
             return feedback_hit
           elsif cell.render == "M"
-            feedback_miss = "Your shot on #{coordinate} was a miss."
+            feedback_miss = "Your shot on #{coordinate} was a miss. "
             return feedback_miss
-          else feedback_sunk = "Your shot on #{coordinate} sunk my ship!"
+          else feedback_sunk = "Your shot on #{coordinate} sunk my ship! "
             return feedback_sunk
           end
         else
-          print "You have already fired here. Choose another coordinate."
+          print "You have already fired here. Choose another coordinate. "
         end
       else
-          print "Sorry, that coordinate is not on the board. Try again."
+          print "Sorry, that coordinate is not on the board. Try again. "
       end
     end
   end
 
   def comp_take_shot 
     loop do
-      print "Now it's my turn."
+      print "Now it's my turn. "
       coordinate = @player_board.cells.keys.sample
       coordinate_record << coordinate
       cell = @player_board.cells[coordinate]
         if !cell.fired_upon?
           cell.fire_upon
-          print "I fired on #{coordinate}"
+          print "I fired on #{coordinate}. "
           turn_results << cell
           return cell.render
-        else print "Whoops I have already fired on this coordinate, let me try again."
+        else print "Whoops I have already fired on this coordinate, let me try again. "
         end
     end
   end
 
   def computer_feedback(coordinate_record, turn_results)
     if turn_results == "H"
-      "My shot on #{coordinate_record} was a hit!"
+      "My shot on #{coordinate_record} was a hit! "
     else turn_results == "M"
-      "My shot on #{coordinate_record} was a miss."
+      "My shot on #{coordinate_record} was a miss. "
     end
   end
 

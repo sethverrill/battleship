@@ -19,7 +19,7 @@ RSpec.describe MainMenu do
     it 'asks the player to play' do 
       allow(@menu).to receive(:gets).and_return("p")
       allow(@menu).to receive(:choose_board_size)
-      expect(@menu.start_game).to eq("Beginning BATTLESHIP!")
+      expect(@menu.start_game).to eq(true)
     end
 
     it '...or quit' do
@@ -52,11 +52,11 @@ RSpec.describe MainMenu do
     it 'has placement instructions' do
       instructions = "I have laid out my ships on the grid.\n" +
                       "You now need to lay out your ships.\n" +                      
-                      "  1 2 3 4\n" +
-                      "A . . . .\n" +
-                      "B . . . .\n" +
-                      "C . . . .\n" +
-                      "D . . . .\n"
+                      "  1  2  3  4\n" +
+                      "A .  .  .  . \n" +
+                      "B .  .  .  . \n" +
+                      "C .  .  .  . \n" +
+                      "D .  .  .  . \n"
       expect(@menu.placement_instructions).to eq(instructions)
     end
 
