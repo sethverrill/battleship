@@ -53,20 +53,20 @@ RSpec.describe Turn do
     it "player chooses a coordinate and it's a hit" do
       allow(@turn).to receive(:gets).and_return("B1\n")
       expect { @result = @turn.p_take_shot }.to change { @computer_board.cells["B1"].fired_upon? }.from(false).to(true)      
-      expect(@result).to eq("H")
+      expect(@result).to eq("Your shot on B1 was a hit!")
     end
 
     it "player chooses a coodinate and it's a miss" do
       allow(@turn).to receive(:gets).and_return("A4\n")
       expect { @result = @turn.p_take_shot }.to change { @computer_board.cells["A4"].fired_upon? }.from(false).to(true)
-      expect(@result).to eq("M")
+      expect(@result).to eq("Your shot on A4 was a miss.")
     end    
 
     it 'cannot shoot at the same cell twice' do
       @computer_board.cells["A4"].fire_upon
       allow(@turn).to receive(:gets).and_return("A4\n", "B1\n")      
       expect { @result = @turn.p_take_shot }.to output("Enter a coordinate to fire upon: You have already fired here. Choose another coordinate.Enter a coordinate to fire upon: ").to_stdout
-      expect(@result).to eq("H")   
+      expect(@result).to eq("Your shot on B1 was a hit!")   
     end
 
     it 'handles invalid coordinates' do
@@ -76,21 +76,13 @@ RSpec.describe Turn do
   end
 
   describe '#computer takes a turn' do
-    xit "computer chooses a coordiante to fire on" do     
+    it "computer chooses a coordiante to fire on" do     
       shot = @turn.comp_take_shot
       expect(["H", "M", "X"]).to include(shot)
     end
   end
   
   describe "#gives feedback" do
-    xit "player had a hit" do      
-      expect(@turn.player_feedback("A1", "H")).to eq("Your shot on A1 was a hit!")
-    end
-
-    xit "player had a miss" do
-      expect(@turn.player_feedback("A4", "M")).to eq("Your shot on A4 was a miss.")
-    end
-
     xit "computer had a hit" do
       expect(@turn.computer_feedback("A1", "H")).to eq("My shot on A1 was a hit!")
     end
