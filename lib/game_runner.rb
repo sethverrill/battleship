@@ -21,8 +21,9 @@ class GameRunner
     @board_size = @main_menu.choose_board_size
     @player_board = Board.new(@board_size)
     @computer_board = Board.new(@board_size)
-    @player_ships = Ship.build_ships
-    @computer_ships = Ship.build_ships
+    ships = Ship.build_ships
+    @player_ships = ships
+    @computer_ships = ships.map { |ship| Ship.new(ship.name, ship.length)}
 
     puts @main_menu.placement_instructions
     @player_ships.each do |ship|
