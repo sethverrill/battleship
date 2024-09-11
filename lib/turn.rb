@@ -6,6 +6,14 @@ class Turn
     @computer_board = computer_board
   end
 
+  def turn_results
+    []
+  end
+
+  def coordinate_record
+    []
+  end
+
   def display_boards
     comp_board = "=============COMPUTER BOARD=============\n"
     comp_board += @computer_board.render
@@ -46,22 +54,23 @@ class Turn
     loop do
       print "Now it's my turn."
       coordinate = @player_board.cells.keys.sample
+      coordinate_record << coordinate
       cell = @player_board.cells[coordinate]
         if !cell.fired_upon?
           cell.fire_upon
           print "I fired on #{coordinate}"
+          turn_results << cell
           return cell.render
         else print "Whoops I have already fired on this coordinate, let me try again."
         end
     end
   end
 
-  # def player_feedback
-  #   p_take_shot
-  #   if cell.render == "H"
-  #     "Your shot on #{coordinate} was a hit!"
-  #   else cell.render == "M"
-  #     "Your shot on #{coordinate} was a miss."
-  #   end
-  # end
+  def computer_feedback(coordinate_record, turn_results)
+    if turn_results == "H"
+      "My shot on #{coordinate_record} was a hit!"
+    else turn_results == "M"
+      "My shot on #{coordinate_record} was a miss."
+    end
+  end
 end
