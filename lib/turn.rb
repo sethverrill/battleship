@@ -88,10 +88,10 @@ class Turn
     end 
 
     if player_ships_sunk
-        puts "Computer wins!"
+        puts "I won!"
         return true
     elsif computer_ships_sunk
-        puts "You win!"
+        puts "You won!"
         return true
     end
     false
