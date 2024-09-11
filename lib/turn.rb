@@ -73,4 +73,27 @@ class Turn
       "My shot on #{coordinate_record} was a miss."
     end
   end
+
+  def game_over(player_board, computer_board)
+    player_ships_sunk = @player_board.cells.values.select do |cell|
+        !cell.ship.nil? 
+    end.all? do |cell|
+        cell.ship.sunk?
+    end
+
+    computer_ships_sunk = @computer_board.cells.values.select do |cell|
+        !cell.ship.nil? 
+    end.all? do |cell|
+        cell.ship.sunk?
+    end 
+
+    if player_ships_sunk
+        puts "Computer wins!"
+        return true
+    elsif computer_ships_sunk
+        puts "You win!"
+        return true
+    end
+    false
+  end
 end
