@@ -53,20 +53,20 @@ RSpec.describe Turn do
     it "player chooses a coordinate and it's a hit" do
       allow(@turn).to receive(:gets).and_return("B1\n")
       expect { @result = @turn.p_take_shot }.to change { @computer_board.cells["B1"].fired_upon? }.from(false).to(true)      
-      expect(@result).to eq("H")
+      expect(@result).to eq("Your shot on B1 was a hit!")
     end
 
     it "player chooses a coodinate and it's a miss" do
       allow(@turn).to receive(:gets).and_return("A4\n")
       expect { @result = @turn.p_take_shot }.to change { @computer_board.cells["A4"].fired_upon? }.from(false).to(true)
-      expect(@result).to eq("M")
+      expect(@result).to eq("Your shot on A4 was a miss.")
     end    
 
     it 'cannot shoot at the same cell twice' do
       @computer_board.cells["A4"].fire_upon
       allow(@turn).to receive(:gets).and_return("A4\n", "B1\n")      
       expect { @result = @turn.p_take_shot }.to output("Enter a coordinate to fire upon: You have already fired here. Choose another coordinate.Enter a coordinate to fire upon: ").to_stdout
-      expect(@result).to eq("H")   
+      expect(@result).to eq("Your shot on B1 was a hit!")   
     end
 
     it 'handles invalid coordinates' do
@@ -76,27 +76,41 @@ RSpec.describe Turn do
   end
 
   describe '#computer takes a turn' do
-    xit "computer chooses a coordiante to fire on" do     
+    it "computer chooses a coordiante to fire on" do     
       shot = @turn.comp_take_shot
       expect(["H", "M", "X"]).to include(shot)
     end
   end
   
   describe "#gives feedback" do
-    xit "player had a hit" do      
-      expect(@turn.player_feedback("A1", "H")).to eq("Your shot on A1 was a hit!")
-    end
-
-    xit "player had a miss" do
-      expect(@turn.player_feedback("A4", "M")).to eq("Your shot on A4 was a miss.")
-    end
-
-    xit "computer had a hit" do
+    it "computer had a hit" do
       expect(@turn.computer_feedback("A1", "H")).to eq("My shot on A1 was a hit!")
     end
 
-    xit "computer had a miss" do
+    it "computer had a miss" do
       expect(@turn.computer_feedback("B1", "M")).to eq("My shot on B1 was a miss.")
     end
   end 
+
+  describe '#game over' do
+    it 'returns false when no ships are sunk' do
+      expect(@turn.game_over(@player_board, @computer_board)).to eq(false)
+    end
+
+    it 'returns true when all player ships are sunk' do
+      ["A1", "A2", "A3", "C1", "D1"].each { |coord| @player_board.cells[coord].fire_upon }
+      expect(@turn.game_over(@player_board, @computer_board)).to eq(true)
+    end
+
+    it 'returns true when all computer ships are sunk' do
+      ["B1", "B2", "B3", "D1", "D2"].each { |coord| @computer_board.cells[coord].fire_upon }
+     expect(@turn.game_over(@player_board, @computer_board)).to eq(true)
+    end
+
+    it 'returns false when some ships are sunk but the game is not over' do
+      ["A1", "A2"].each { |coord| @player_board.cells[coord].fire_upon }
+      ["B1", "B2"].each { |coord| @computer_board.cells[coord].fire_upon }
+      expect(@turn.game_over(@player_board, @computer_board)).to eq(false)
+    end
+  end
 end
