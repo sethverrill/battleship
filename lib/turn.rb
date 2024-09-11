@@ -24,7 +24,15 @@ class Turn
         cell = @computer_board.cells[coordinate]
         if !cell.fired_upon?
           cell.fire_upon
-          return cell.render
+          if cell.render == "H"
+            feedback_hit = "Your shot on #{coordinate} was a hit!"
+            return feedback_hit
+          elsif cell.render == "M"
+            feedback_miss = "Your shot on #{coordinate} was a miss."
+            return feedback_miss
+          else feedback_sunk = "Your shot on #{coordinate} sunk my ship!"
+            return feedback_sunk
+          end
         else
           print "You have already fired here. Choose another coordinate."
         end
@@ -48,4 +56,12 @@ class Turn
     end
   end
 
+  # def player_feedback
+  #   p_take_shot
+  #   if cell.render == "H"
+  #     "Your shot on #{coordinate} was a hit!"
+  #   else cell.render == "M"
+  #     "Your shot on #{coordinate} was a miss."
+  #   end
+  # end
 end
