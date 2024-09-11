@@ -34,4 +34,18 @@ class Turn
     end
   end
 
+  def comp_take_shot 
+    loop do
+      print "Now it's my turn."
+      coordinate = @player_board.cells.keys.sample
+      cell = @player_board.cells[coordinate]
+        if !cell.fired_upon?
+          cell.fire_upon
+          print "I fired on #{coordinate}"
+          return cell.render
+        else print "Whoops I have already fired on this coordinate, let me try again."
+        end
+    end
+  end
+
 end
