@@ -91,4 +91,26 @@ RSpec.describe Turn do
       expect(@turn.computer_feedback("B1", "M")).to eq("My shot on B1 was a miss.")
     end
   end 
+
+  describe '#game over' do
+    it 'returns false when no ships are sunk' do
+      expect(@turn.game_over(@player_board, @computer_board)).to eq(false)
+    end
+
+    it 'returns true when all player ships are sunk' do
+      ["A1", "A2", "A3", "C1", "D1"].each { |coord| @player_board.cells[coord].fire_upon }
+      expect(@turn.game_over(@player_board, @computer_board)).to eq(true)
+    end
+
+    it 'returns true when all computer ships are sunk' do
+      ["B1", "B2", "B3", "D1", "D2"].each { |coord| @computer_board.cells[coord].fire_upon }
+     expect(@turn.game_over(@player_board, @computer_board)).to eq(true)
+    end
+
+    it 'returns false when some ships are sunk but the game is not over' do
+      ["A1", "A2"].each { |coord| @player_board.cells[coord].fire_upon }
+      ["B1", "B2"].each { |coord| @computer_board.cells[coord].fire_upon }
+      expect(@turn.game_over(@player_board, @computer_board)).to eq(false)
+    end
+  end
 end
