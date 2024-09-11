@@ -58,7 +58,7 @@ class Board
   def place_computer_ships(ships)
     ships.each do |ship|
       loop do
-        coordinates = @board.cells.keys.sample(ship.length)
+        coordinates = @cells.keys.sample(ship.length)
         if valid_placement?(ship, coordinates)
           place(ship, coordinates)
           break
