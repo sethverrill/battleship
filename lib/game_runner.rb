@@ -2,14 +2,8 @@ require './spec/spec_helper'
 
 class GameRunner
 
-  def initialize
-    @main_menu = MainMenu.new
-    @board_size = @main_menu.board_size
-    @player_board = nil
-    @computer_board = nil
-    @player_ships = nil
-    @computer_ship = nil
-    @turn = nil
+  def initialize(main_menu)
+    @main_menu = main_menu  
   end  
 
   def start
@@ -60,5 +54,6 @@ class GameRunner
   end
 end
 
-game = GameRunner.new
+main_menu = MainMenu.new
+game = GameRunner.new(main_menu)
 game.start
