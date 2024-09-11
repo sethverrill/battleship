@@ -55,7 +55,7 @@ class Board
     end
   end
 
-  def place_computer_ships
+  def place_computer_ships(ships)
     ships.each do |ship|
       loop do
         coordinates = @board.cells.keys.sample(ship.length)
