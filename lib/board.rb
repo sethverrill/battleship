@@ -3,7 +3,7 @@ class Board
               :size  
 
   def initialize(size = 4)
-    @size = size
+    @size = size.to_i
     @cells = board_cells    
   end
 
