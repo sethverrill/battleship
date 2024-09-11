@@ -1,5 +1,7 @@
 class MainMenu
+    attr_reader :board_size
     def initialize
+        @board_size = 4
     end
 
     def welcome
@@ -17,6 +19,28 @@ class MainMenu
         end
     end
 
+    def choose_board_size
+        "Please choose the size of board you would like to play on:"
+        "Enter 1 for 4x4"
+        "Enter 2 for 8x8"
+        "Enter 3 for 12x12"
+        "Enter 4 for 20x20"
+        input = gets.chomp
+        case input
+        when "1"
+            @board_size = 4
+        when "2"
+            @board_size = 8
+        when "3"
+            @board_size = 12
+        when "4"
+            @board_size = 20
+        else
+            "That is not a valid selection. Playing with default board"
+            @board_size = 4
+        end
+    end
+
     def placement_instructions
         "I have laid out my ships on the grid.\n" +
                       "You now need to lay out your two ships.\n" +
@@ -27,18 +51,6 @@ class MainMenu
                       "C . . . .\n" +
                       "D . . . .\n"
     end
-
-    def place_computer_ships
-        [@cruiser, @submarine].each do |ship|
-            loop do
-                coordinates = @board.cells.keys.sample(ship.length)
-                if @board.valid_placement?(ship, coordinates)
-                    @board.place(ship, coordinates)
-                    break
-                end
-            end
-        end
-    end   
 
     def place_ship(ship, board)
         puts "Enter #{ship.length} coordinates for the #{ship.name}"

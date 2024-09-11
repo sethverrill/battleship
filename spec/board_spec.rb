@@ -2,7 +2,8 @@ require './spec/spec_helper'
 
 RSpec.describe Board do
     before(:each) do
-      @board = Board.new 
+      @board = Board.new
+      @board2 = Board.new(8) 
     end
 
     describe '#initialize board' do
@@ -20,6 +21,7 @@ RSpec.describe Board do
 
         it 'has 16 cells' do
             expect(@board.cells.size).to eq(16)
+            expect(@board2.cells.size).to eq(64)
         end 
 
         it 'has Cell objects as values' do
@@ -102,12 +104,12 @@ RSpec.describe Board do
         end
 
         it 'renders the board without revealing ships by default' do
-            expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+            expect(@board.render).to eq("  1 2 3 4\nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
         end
 
         it 'renders the board with ships if show_ships = true' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+            expect(@board.render(true)).to eq("  1 2 3 4\nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
         end
 
         it 'renders hits, misses, and sunken ships' do
@@ -117,11 +119,11 @@ RSpec.describe Board do
             @board.cells["B4"].fire_upon
             @board.cells["C1"].fire_upon
             @board.cells["D1"].fire_upon
-            expect(@board.render(true)).to eq("  1 2 3 4 \nA H S S . \nB . . . M \nC X . . . \nD X . . . \n")
+            expect(@board.render(true)).to eq("  1 2 3 4\nA H S S . \nB . . . M \nC X . . . \nD X . . . \n")
         end
 
         it 'renders letter coordinates' do
-            expect(@board.top_row).to eq("  1 2 3 4 \n")
+            expect(@board.top_row).to eq("  1 2 3 4\n")
         end
 
         it 'renders number coordinates' do
