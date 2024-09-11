@@ -51,8 +51,7 @@ RSpec.describe MainMenu do
 
     it 'has placement instructions' do
       instructions = "I have laid out my ships on the grid.\n" +
-                      "You now need to lay out your two ships.\n" +
-                      "The Cruiser is three units long and the Submarine is two units long.\n" +
+                      "You now need to lay out your ships.\n" +                      
                       "  1 2 3 4\n" +
                       "A . . . .\n" +
                       "B . . . .\n" +
